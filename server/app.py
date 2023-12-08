@@ -50,8 +50,8 @@ class PlantByID(Resource):
     def patch(self, id):
         record = Plant.query.filter(Plant.id == id).first()
 
-        for attr in request.form:
-            setattr(record, attr, request.form[attr])
+        for attr in request.get_json():
+            setattr(record, attr, request.get_json()[attr])
 
         db.session.add(record)
         db.session.commit()
